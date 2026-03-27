@@ -7,5 +7,12 @@
     "decorators": "./src/decorators.tsx",
     "id": "bh-prayer-request",
     "description": "Prayer request form component for Brother Hyeok Ministries"
+  },
+  "telemetry": {
+    "global": {
+      "allowTelemetry": true,
+      "lastPrompted": 1774587024738,
+      "version": "1.13.0"
+    }
   }
 }

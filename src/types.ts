@@ -2,7 +2,7 @@ export type SubmitState = "idle" | "submitting" | "success" | "error";
 
 export interface PrayerRequestFormProps {
   headingText?: string;
-  imageUrl?: string;
+  image?: { src: string; alt?: string };
   descriptionLine1?: string;
   descriptionLine2?: string;
   emailPlaceholder?: string;
@@ -13,5 +13,4 @@ export interface PrayerRequestFormProps {
   buttonSubmittingLabel?: string;
   successMessage?: string;
   errorMessage?: string;
-  enableSplitLineAnimation?: boolean;
 }

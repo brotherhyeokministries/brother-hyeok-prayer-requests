@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import type { PrayerRequestFormProps, SubmitState } from "./types";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,7 +40,7 @@ function joinClasses(...values: Array<string | false | null | undefined>): strin
 
 export function PrayerRequestForm({
   headingText = "Prayer Request",
-  imageUrl = "",
+  image,
   descriptionLine1 = "Your precious prayer request will be delivered to Man of God Hyeok Park through our staff. Please understand that individual replies will not be provided.",
   descriptionLine2 = "After requesting intercessory prayer, we encourage you not to lose your faith toward the Almighty God and to continue trusting Him.",
   emailPlaceholder = "name@email.com",
@@ -51,7 +51,6 @@ export function PrayerRequestForm({
   buttonSubmittingLabel = "Sending...",
   successMessage = "Your prayer request has been received. We will be praying for you.",
   errorMessage = "We couldn\u2019t submit your prayer request right now. Please try again in a moment.",
-  enableSplitLineAnimation = true,
 }: PrayerRequestFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -61,22 +60,10 @@ export function PrayerRequestForm({
   const [agreed, setAgreed] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [statusMessage, setStatusMessage] = useState("");
-  const [headingInView, setHeadingInView] = useState(false);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    if (!enableSplitLineAnimation || !headingRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHeadingInView(entry.isIntersecting),
-      { threshold: 0.15 },
-    );
-    observer.observe(headingRef.current);
-    return () => observer.disconnect();
-  }, [enableSplitLineAnimation]);
 
   const selectedCountry = COUNTRIES.find((c) => c.code === country) || COUNTRIES[0];
   const selectedLanguage = LANGUAGES.find((l) => l.code === language) || LANGUAGES[0];
-  const charsRemaining = prayerRequestMaxLength - prayerRequest.length;
+  const charsUsed = prayerRequest.length;
 
   const clearFeedback = () => {
     if (submitState !== "idle") {
@@ -166,18 +153,7 @@ export function PrayerRequestForm({
           from { opacity: 0; transform: translateY(22px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes splitLineIn {
-          from { opacity: 0; transform: translateY(80px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .pr-split-hidden {
-          opacity: 0;
-          transform: translateY(80px);
-        }
-        .pr-split-animate {
-          animation: splitLineIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) 0.6s forwards;
-        }
-        .pr-root {
+.pr-root {
           width: 100%;
           color: #ffffff;
           font-family: Suisseintl, Arial, sans-serif;
@@ -223,9 +199,10 @@ export function PrayerRequestForm({
         .pr-image {
           width: 100%;
           margin-top: 32px;
-          border-radius: 0;
+          border-radius: 10px;
           object-fit: cover;
           aspect-ratio: 16 / 10;
+          filter: grayscale(100%);
         }
         .pr-description {
           margin: 32px 0 0;
@@ -331,11 +308,12 @@ export function PrayerRequestForm({
           width: 100%;
           min-height: 120px;
           background: transparent;
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           color: #ffffff;
           font-family: inherit;
           font-size: clamp(1rem, ((1 - ((1.125 - 1) / (var(--screen-size--max) - var(--screen-size--min)) * var(--screen-size--min))) * 1rem + ((1.125 - 1) / (var(--screen-size--max) - var(--screen-size--min))) * 100vw), 1.125rem);
-          padding: 14px;
+          padding: 8px 0 14px;
           outline: none;
           resize: vertical;
           transition: border-color 0.2s ease;
@@ -345,7 +323,7 @@ export function PrayerRequestForm({
           color: rgba(255, 255, 255, 0.25);
         }
         .pr-textarea:focus {
-          border-color: rgba(255, 255, 255, 0.5);
+          border-bottom-color: rgba(255, 255, 255, 0.5);
         }
         .pr-char-count {
           margin-top: 6px;
@@ -361,6 +339,7 @@ export function PrayerRequestForm({
           align-items: flex-start;
           gap: 12px;
           cursor: pointer;
+          margin-top: -20px;
         }
         .pr-checkbox {
           width: 18px;
@@ -385,9 +364,9 @@ export function PrayerRequestForm({
           width: fit-content;
           min-width: 120px;
           height: 48px;
-          margin-top: 20px;
+          margin-top: -16px;
           padding: 0 7px;
-          border: 1px solid rgba(255, 255, 255, 0.3);
+          border: 1px solid #ffffff;
           border-radius: 999px;
           background: #ffffff;
           color: #000000;
@@ -453,36 +432,13 @@ export function PrayerRequestForm({
       <section className={joinClasses("pr-shell", "dark-theme")}>
         <div className="pr-grid">
           <div className="pr-copy">
-            <h2
-              ref={headingRef}
-              className={joinClasses(
-                "pr-heading",
-                "heading-style-h1",
-                enableSplitLineAnimation && "pr-split-hidden",
-                enableSplitLineAnimation && headingInView && "pr-split-animate",
-                enableSplitLineAnimation && "split-line",
-              )}
-            >
+            <h2 className={joinClasses("pr-heading", "heading-style-h1")}>
               {headingText}
             </h2>
 
-            {imageUrl ? (
-              <img className="pr-image" src={imageUrl} alt="Prayer" />
-            ) : (
-              <div
-                className="pr-image"
-                style={{
-                  background: "linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#929292",
-                  fontSize: "14px",
-                }}
-              >
-                Set image URL in component settings
-              </div>
-            )}
+            {image?.src ? (
+              <img className="pr-image" src={image.src} alt={image.alt || "Prayer"} />
+            ) : null}
 
             <p className={joinClasses("pr-description", "text-size-regular")}>
               {descriptionLine1}
@@ -596,10 +552,10 @@ export function PrayerRequestForm({
                   <div
                     className={joinClasses(
                       "pr-char-count",
-                      charsRemaining <= 30 && "pr-char-warning",
+                      charsUsed >= prayerRequestMaxLength - 30 && "pr-char-warning",
                     )}
                   >
-                    {charsRemaining} / {prayerRequestMaxLength}
+                    {charsUsed} / {prayerRequestMaxLength}
                   </div>
                 </div>
 
@@ -618,7 +574,7 @@ export function PrayerRequestForm({
 
                 <button
                   className={joinClasses("pr-submit", "submit_button")}
-                  disabled={submitState === "submitting" || !agreed}
+                  disabled={submitState === "submitting"}
                   type="submit"
                 >
                   {submitState === "submitting" ? buttonSubmittingLabel : buttonLabel}

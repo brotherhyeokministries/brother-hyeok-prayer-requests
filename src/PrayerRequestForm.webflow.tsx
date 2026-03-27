@@ -15,9 +15,8 @@ export default declareComponent(PrayerRequestForm, {
       name: "Heading Text",
       defaultValue: "Prayer Request",
     }),
-    imageUrl: props.Text({
-      name: "Image URL",
-      defaultValue: "",
+    image: props.Image({
+      name: "Image",
     }),
     descriptionLine1: props.Text({
       name: "Description Line 1",
@@ -61,10 +60,6 @@ export default declareComponent(PrayerRequestForm, {
     errorMessage: props.Text({
       name: "Error Message",
       defaultValue: "We couldn\u2019t submit your prayer request right now. Please try again in a moment.",
-    }),
-    enableSplitLineAnimation: props.Boolean({
-      name: "Enable Split Line Animation",
-      defaultValue: true,
     }),
   },
 });
