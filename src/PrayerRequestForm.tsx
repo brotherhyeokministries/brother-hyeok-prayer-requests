@@ -113,7 +113,6 @@ export function PrayerRequestForm({
     setStatusMessage("");
 
     try {
-      // Placeholder: you will connect this to Airtable later
       const payload = {
         name: trimmedName,
         email: trimmedEmail,
@@ -121,14 +120,21 @@ export function PrayerRequestForm({
         language,
         prayerRequest: trimmedPrayer,
         agreedToNewsletter: agreed,
-        submittedAt: new Date().toISOString(),
       };
 
-      // TODO: Replace with your Airtable API call
-      console.log("Prayer request payload:", payload);
+      const res = await fetch(
+        "https://brother-hyeok-prayer-requests.vercel.app/api/prayer-request",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
-      // Simulate success for now
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Submission failed.");
+      }
 
       setSubmitState("success");
       setStatusMessage(successMessage);
