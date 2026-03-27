@@ -1,0 +1,11 @@
+{
+  "library": {
+    "name": "Brother Hyeok Prayer Request",
+    "components": [
+      "./src/**/*.webflow.@(ts|tsx)"
+    ],
+    "decorators": "./src/decorators.tsx",
+    "id": "bh-prayer-request",
+    "description": "Prayer request form component for Brother Hyeok Ministries"
+  }
+}
