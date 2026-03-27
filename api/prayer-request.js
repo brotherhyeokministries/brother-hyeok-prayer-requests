@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
   const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || "tblKWNy2dlaJXBN5I";
 
-  console.log("DEBUG env:", { hasKey: !!AIRTABLE_API_KEY, hasBase: !!AIRTABLE_BASE_ID, table: AIRTABLE_TABLE_NAME });
+
 
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
     console.error("Missing env vars:", { hasKey: !!AIRTABLE_API_KEY, hasBase: !!AIRTABLE_BASE_ID });
@@ -54,12 +54,14 @@ export default async function handler(req, res) {
         records: [
           {
             fields: {
-              Name: name || "",
-              Email: email,
-              Content: prayerRequest,
-              Source: "Website",
-              Status: "New",
-              Created_at: new Date().toISOString().split("T")[0],
+              name: name || "",
+              email: email,
+              content: prayerRequest,
+              type: "public",
+              priority: "normal_public",
+              status: "active",
+              source: "website",
+              created_at: new Date().toISOString().split("T")[0],
             },
           },
         ],
@@ -71,7 +73,7 @@ export default async function handler(req, res) {
       console.error("Airtable URL:", url);
       console.error("Airtable status:", airtableRes.status);
       console.error("Airtable error:", errorData);
-      return res.status(502).json({ error: "Failed to save prayer request.", debug: errorData });
+      return res.status(502).json({ error: "Failed to save prayer request." });
     }
 
     return res.status(200).json({ success: true });
