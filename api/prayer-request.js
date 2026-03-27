@@ -52,10 +52,12 @@ export default async function handler(req, res) {
         records: [
           {
             fields: {
-              name: name || "",
-              email: email,
-              content: prayerRequest,
-              created_at: new Date().toISOString().split("T")[0],
+              Name: name || "",
+              Email: email,
+              Content: prayerRequest,
+              Source: "Website",
+              Status: "New",
+              Created_at: new Date().toISOString().split("T")[0],
             },
           },
         ],
