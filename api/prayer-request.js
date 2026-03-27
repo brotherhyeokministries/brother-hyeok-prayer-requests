@@ -1,12 +1,6 @@
-const ALLOWED_ORIGINS = [
-  "https://www.brotherhyeok.com",
-  "https://brotherhyeok.com",
-];
-
 function getCorsHeaders(origin) {
-  const allowedOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
-    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Origin": origin || "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
