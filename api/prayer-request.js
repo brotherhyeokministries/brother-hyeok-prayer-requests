@@ -46,14 +46,14 @@ export default async function handler(req, res) {
         records: [
           {
             fields: {
-              Name: name || "",
-              Email: email,
-              Content: prayerRequest,
-              Type: "public",
-              Priority: "normal_public",
-              Status: "active",
-              Source: "website",
-              Created_at: new Date().toISOString().split("T")[0],
+              name: name || "",
+              email: email,
+              content: prayerRequest,
+              type: "public",
+              priority: "normal_public",
+              status: "active",
+              source: "website",
+              created_at: new Date().toISOString().split("T")[0],
             },
           },
         ],
