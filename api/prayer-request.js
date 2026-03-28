@@ -46,7 +46,7 @@ export default async function handler(req, res) {
         records: [
           {
             fields: {
-              name: name || "",
+              "General P name": name || "",
               email: email,
               content: prayerRequest,
               type: "public",
