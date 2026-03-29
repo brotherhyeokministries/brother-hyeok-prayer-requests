@@ -73,7 +73,7 @@ export default async function handler(req, res) {
     console.log("LOOPS_API_KEY present:", !!LOOPS_API_KEY);
     if (LOOPS_API_KEY) {
       try {
-        const loopsRes = await fetch("https://app.loops.so/api/v2/transactional", {
+        const loopsRes = await fetch("https://app.loops.so/api/v1/transactional", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${LOOPS_API_KEY}`,
@@ -101,7 +101,7 @@ export default async function handler(req, res) {
     // Add to Loops newsletter contact list if they agreed
     if (agreedToNewsletter && LOOPS_API_KEY) {
       try {
-        await fetch("https://app.loops.so/api/v2/contacts/create", {
+        await fetch("https://app.loops.so/api/v1/contacts/create", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${LOOPS_API_KEY}`,
