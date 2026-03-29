@@ -86,7 +86,6 @@ export default async function handler(req, res) {
             subscribed: agreedToNewsletter || false,
             country: country || "",
             locale: language || "en-us",
-            prayerRequest: prayerRequest,
           }),
         });
         console.log("Loops contact status:", contactRes.status);
