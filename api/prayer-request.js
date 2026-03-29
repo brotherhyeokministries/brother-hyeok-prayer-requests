@@ -68,6 +68,50 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: "Failed to save prayer request." });
     }
 
+    // Send transactional confirmation email via Loops
+    const LOOPS_API_KEY = process.env.LOOPS_API_KEY;
+    if (LOOPS_API_KEY) {
+      try {
+        await fetch("https://app.loops.so/api/v2/transactional", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${LOOPS_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            transactionalId: "cmmi3mcuq5r3m0iz1d00ncar1",
+            email: email,
+            dataVariables: {
+              name: name || "Friend",
+            },
+          }),
+        });
+      } catch (loopsError) {
+        // Log but don't fail the request if email fails
+        console.error("Loops email error:", loopsError);
+      }
+    }
+
+    // Add to Loops newsletter contact list if they agreed
+    if (agreedToNewsletter && LOOPS_API_KEY) {
+      try {
+        await fetch("https://app.loops.so/api/v2/contacts/create", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${LOOPS_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            firstName: name || "",
+            source: "prayer_request_form",
+          }),
+        });
+      } catch (contactError) {
+        console.error("Loops contact error:", contactError);
+      }
+    }
+
     return res.status(200).json({ success: true });
   } catch (error) {
     console.error("Server error:", error);
