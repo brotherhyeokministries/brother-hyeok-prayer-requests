@@ -70,9 +70,10 @@ export default async function handler(req, res) {
 
     // Send transactional confirmation email via Loops
     const LOOPS_API_KEY = process.env.LOOPS_API_KEY;
+    console.log("LOOPS_API_KEY present:", !!LOOPS_API_KEY);
     if (LOOPS_API_KEY) {
       try {
-        await fetch("https://app.loops.so/api/v2/transactional", {
+        const loopsRes = await fetch("https://app.loops.so/api/v2/transactional", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${LOOPS_API_KEY}`,
@@ -86,10 +87,15 @@ export default async function handler(req, res) {
             },
           }),
         });
+        const loopsData = await loopsRes.text();
+        console.log("Loops response status:", loopsRes.status);
+        console.log("Loops response body:", loopsData);
       } catch (loopsError) {
         // Log but don't fail the request if email fails
         console.error("Loops email error:", loopsError);
       }
+    } else {
+      console.log("Skipping Loops - no API key");
     }
 
     // Add to Loops newsletter contact list if they agreed
