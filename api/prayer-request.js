@@ -104,7 +104,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             email: email,
-            eventName: "prayer_request_submitted",
+            eventName: "prayer.request.created",
             eventProperties: {
               name: name || "Friend",
               prayerRequest: prayerRequest,
