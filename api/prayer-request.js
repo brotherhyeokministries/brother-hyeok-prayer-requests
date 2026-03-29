@@ -81,7 +81,8 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             email: email,
-            firstName: name || "",
+            firstName: name ? name.split(" ")[0] : "",
+            fullName: name || "",
             source: "prayer_request_form",
             subscribed: agreedToNewsletter || false,
             country: country || "",
