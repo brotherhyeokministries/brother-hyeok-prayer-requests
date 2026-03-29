@@ -68,41 +68,13 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: "Failed to save prayer request." });
     }
 
-    // Send transactional confirmation email via Loops
+    // Save contact to Loops and fire event to trigger the Loop
     const LOOPS_API_KEY = process.env.LOOPS_API_KEY;
-    console.log("LOOPS_API_KEY present:", !!LOOPS_API_KEY);
     if (LOOPS_API_KEY) {
+      // Step 1: Create or update contact with all properties
       try {
-        const loopsRes = await fetch("https://app.loops.so/api/v1/transactional", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${LOOPS_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            transactionalId: "cmmi3mcuq5r3m0iz1d00ncar1",
-            email: email,
-            dataVariables: {
-              name: name || "Friend",
-            },
-          }),
-        });
-        const loopsData = await loopsRes.text();
-        console.log("Loops response status:", loopsRes.status);
-        console.log("Loops response body:", loopsData);
-      } catch (loopsError) {
-        // Log but don't fail the request if email fails
-        console.error("Loops email error:", loopsError);
-      }
-    } else {
-      console.log("Skipping Loops - no API key");
-    }
-
-    // Add to Loops newsletter contact list if they agreed
-    if (agreedToNewsletter && LOOPS_API_KEY) {
-      try {
-        await fetch("https://app.loops.so/api/v1/contacts/create", {
-          method: "POST",
+        const contactRes = await fetch("https://app.loops.so/api/v1/contacts/update", {
+          method: "PUT",
           headers: {
             Authorization: `Bearer ${LOOPS_API_KEY}`,
             "Content-Type": "application/json",
@@ -111,10 +83,39 @@ export default async function handler(req, res) {
             email: email,
             firstName: name || "",
             source: "prayer_request_form",
+            subscribed: agreedToNewsletter || false,
+            country: country || "",
+            locale: language || "en-us",
+            prayerRequest: prayerRequest,
           }),
         });
+        console.log("Loops contact status:", contactRes.status);
       } catch (contactError) {
         console.error("Loops contact error:", contactError);
+      }
+
+      // Step 2: Fire event to trigger the Loop workflow
+      try {
+        const eventRes = await fetch("https://app.loops.so/api/v1/events/send", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${LOOPS_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            eventName: "prayer_request_submitted",
+            eventProperties: {
+              name: name || "Friend",
+              prayerRequest: prayerRequest,
+              language: language || "en-us",
+              country: country || "",
+            },
+          }),
+        });
+        console.log("Loops event status:", eventRes.status);
+      } catch (eventError) {
+        console.error("Loops event error:", eventError);
       }
     }
 
