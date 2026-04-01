@@ -34,6 +34,14 @@ const LANGUAGES = [
   { code: "pt-br", name: "Portugu\u00eas" },
 ];
 
+const SUCCESS_MESSAGES: Record<string, string> = {
+  "en-us": "Your prayer request has been successfully submitted. Our team will deliver it to the Man of God, Hyeok. And he will pray for you.",
+  "ko-kr": "기도 요청이 성공적으로 제출되었습니다. 담당 스텝이 이를 하나님의 사람 박혁 전도자에게 전달하며, 박혁 전도자가 당신을 위해 중보기도할 것입니다.",
+  "es": "Su petición de oración ha sido enviada con éxito. Nuestro equipo la entregará al hombre de Dios, Hyeok, quien estará orando por usted.",
+  "pt-br": "Seu pedido de oração foi enviado com sucesso. Nossa equipe o entregará ao homem de Deus, Hyeok, que estará orando por você.",
+  "ja-jp": "祈りのリクエストが正常に送信されました。担当スタッフがこれを神の人ヒョク・パークにお届けし、ヒョク・パークがあなたのために執り成しの祈りをいたします。",
+};
+
 function joinClasses(...values: Array<string | false | null | undefined>): string {
   return values.filter(Boolean).join(" ");
 }
@@ -137,7 +145,7 @@ export function PrayerRequestForm({
       }
 
       setSubmitState("success");
-      setStatusMessage(successMessage);
+      setStatusMessage(SUCCESS_MESSAGES[language] || SUCCESS_MESSAGES["en-us"]);
       setName("");
       setEmail("");
       setPrayerRequest("");
