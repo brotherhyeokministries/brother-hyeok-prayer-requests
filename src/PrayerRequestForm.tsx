@@ -172,7 +172,18 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
   },
 };
 
-function resolveLocale(lang: string): string {
+function resolveLocale(lang: string, pathname: string): string {
+  // Check URL subdirectory first (Webflow uses /kr/, /jp/, /es/, /pt-br/)
+  const pathSegments = pathname.toLowerCase().split("/").filter(Boolean);
+  const firstSegment = pathSegments[0] || "";
+
+  if (firstSegment === "kr" || firstSegment === "ko") return "ko";
+  if (firstSegment === "jp" || firstSegment === "ja") return "ja";
+  if (firstSegment === "es") return "es";
+  if (firstSegment === "pt-br" || firstSegment === "pt") return "pt";
+  if (firstSegment === "en-us" || firstSegment === "en") return "en";
+
+  // Fallback to html lang attribute
   const normalized = lang.toLowerCase();
   if (normalized.startsWith("ko")) return "ko";
   if (normalized.startsWith("ja")) return "ja";
@@ -183,21 +194,22 @@ function resolveLocale(lang: string): string {
 
 function usePageLocale(): string {
   const [locale, setLocale] = useState(() => {
-    if (typeof document !== "undefined") {
-      return resolveLocale(document.documentElement.lang || "en");
+    if (typeof document !== "undefined" && typeof window !== "undefined") {
+      return resolveLocale(document.documentElement.lang || "en", window.location.pathname);
     }
     return "en";
   });
 
   useEffect(() => {
-    if (typeof document === "undefined" || typeof MutationObserver === "undefined") return;
+    if (typeof document === "undefined" || typeof window === "undefined") return;
 
-    setLocale(resolveLocale(document.documentElement.lang || "en"));
+    setLocale(resolveLocale(document.documentElement.lang || "en", window.location.pathname));
 
+    // Watch for lang attribute changes
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         if (mutation.type === "attributes" && mutation.attributeName === "lang") {
-          setLocale(resolveLocale(document.documentElement.lang || "en"));
+          setLocale(resolveLocale(document.documentElement.lang || "en", window.location.pathname));
         }
       }
     });
