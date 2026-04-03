@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-  const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || "Prayer Requests";
+  const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || "tblKWNy2dlaJXBN5I";
 
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
     console.error("Missing env vars:", { hasKey: !!AIRTABLE_API_KEY, hasBase: !!AIRTABLE_BASE_ID });
