@@ -34,7 +34,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`;
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/tblKWNy2dlaJXBN5I`;
 
     const airtableRes = await fetch(url, {
       method: "POST",
