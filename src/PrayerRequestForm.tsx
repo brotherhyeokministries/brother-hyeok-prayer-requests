@@ -259,7 +259,14 @@ export function PrayerRequestForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("PH");
-  const [language, setLanguage] = useState("en-us");
+  const localeToLanguageCode: Record<string, string> = {
+    en: "en-us",
+    ko: "ko-kr",
+    ja: "ja-jp",
+    es: "es",
+    pt: "pt-br",
+  };
+  const [language, setLanguage] = useState(localeToLanguageCode[locale] || "en-us");
   const [prayerRequest, setPrayerRequest] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
