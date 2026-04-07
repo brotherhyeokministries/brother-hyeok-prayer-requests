@@ -274,18 +274,16 @@ export function PrayerRequestForm({
 
   // Auto-detect user's country via IP geolocation
   useEffect(() => {
-    if (country) return; // Don't override if already set
-    fetch("https://ipapi.co/json/")
+    if (country) return;
+    fetch("https://api.country.is/")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.country_code) {
-          const match = COUNTRIES.find((c) => c.code === data.country_code);
+        if (data?.country) {
+          const match = COUNTRIES.find((c) => c.code === data.country);
           setCountry(match ? match.code : "OTHER");
         }
       })
-      .catch(() => {
-        // Silently fail — user can select manually
-      });
+      .catch(() => {});
   }, []);
 
   const selectedCountry = COUNTRIES.find((c) => c.code === country) || null;
