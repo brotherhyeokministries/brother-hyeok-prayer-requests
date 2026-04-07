@@ -35,11 +35,11 @@ const LANGUAGES = [
 ];
 
 const SUCCESS_MESSAGES: Record<string, string> = {
-  "en-us": "Your prayer request has been successfully submitted. Our team will deliver it to the Man of God, Hyeok. And he will pray for you.",
-  "ko-kr": "\uae30\ub3c4 \uc694\uccad\uc774 \uc131\uacf5\uc801\uc73c\ub85c \uc81c\ucd9c\ub418\uc5c8\uc2b5\ub2c8\ub2e4. \ub2f4\ub2f9 \uc2a4\ud0ed\uc774 \uc774\ub97c \ud558\ub098\ub2d8\uc758 \uc0ac\ub78c \ubc15\ud600 \uc804\ub3c4\uc790\uc5d0\uac8c \uc804\ub2ec\ud558\uba70, \ubc15\ud600 \uc804\ub3c4\uc790\uac00 \ub2f9\uc2e0\uc744 \uc704\ud574 \uc911\ubcf4\uae30\ub3c4\ud560 \uac83\uc785\ub2c8\ub2e4.",
-  "es": "Su petici\u00f3n de oraci\u00f3n ha sido enviada con \u00e9xito. Nuestro equipo la entregar\u00e1 al hombre de Dios, Hyeok, quien estar\u00e1 orando por usted.",
-  "pt-br": "Seu pedido de ora\u00e7\u00e3o foi enviado com sucesso. Nossa equipe o entregar\u00e1 ao homem de Deus, Hyeok, que estar\u00e1 orando por voc\u00ea.",
-  "ja-jp": "\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u304c\u6b63\u5e38\u306b\u9001\u4fe1\u3055\u308c\u307e\u3057\u305f\u3002\u62c5\u5f53\u30b9\u30bf\u30c3\u30d5\u304c\u3053\u308c\u3092\u795e\u306e\u4eba\u30d2\u30e7\u30af\u30fb\u30d1\u30fc\u30af\u306b\u304a\u5c4a\u3051\u3057\u3001\u30d2\u30e7\u30af\u30fb\u30d1\u30fc\u30af\u304c\u3042\u306a\u305f\u306e\u305f\u3081\u306b\u57f7\u308a\u6210\u3057\u306e\u7948\u308a\u3092\u3044\u305f\u3057\u307e\u3059\u3002",
+  en: "Your prayer request has been successfully submitted. Our team will deliver it to the Man of God, Hyeok. And he will pray for you.",
+  ko: "기도 요청이 성공적으로 제출되었습니다. 담당 스텝이 이를 하나님의 사람 박혁 전도자에게 전달하며, 박혁 전도자가 당신을 위해 중보기도할 것입니다.",
+  es: "Su petición de oración ha sido enviada con éxito. Nuestro equipo la entregará al hombre de Dios, Hyeok, quien estará orando por usted.",
+  "pt": "Seu pedido de oração foi enviado com sucesso. Nossa equipe o entregará ao homem de Deus, Hyeok, que estará orando por você.",
+  ja: "祈りのリクエストが正常に送信されました。担当スタッフがこれを神の人ヒョク・パークにお届けし、ヒョク・パークがあなたのために執り成しの祈りをいたします。",
 };
 
 type TranslationStrings = {
@@ -362,7 +362,7 @@ export function PrayerRequestForm({
       }
 
       setSubmitState("success");
-      setStatusMessage(SUCCESS_MESSAGES[language] || SUCCESS_MESSAGES["en-us"]);
+      setStatusMessage(SUCCESS_MESSAGES[locale] || SUCCESS_MESSAGES["en"]);
       setName("");
       setEmail("");
       setPrayerRequest("");
