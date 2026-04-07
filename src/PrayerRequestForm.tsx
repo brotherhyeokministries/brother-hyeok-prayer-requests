@@ -114,7 +114,7 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     countryLabel: "국가를 선택해주세요.",
     languageLabel: "선호하는 언어를 선택해주세요.",
     prayerRequestLabel: "중보기도 요청",
-    prayerRequestPlaceholder: "중보기도 제목을 입력해 주세요",
+    prayerRequestPlaceholder: "중보기도 제목을 입력해 주세요.",
     buttonLabel: "제출하기",
     buttonSubmittingLabel: "제출 중...",
     validationEmailRequired: "\uc774\uba54\uc77c \uc8fc\uc18c\ub97c \uc785\ub825\ud574 \uc8fc\uc138\uc694.",
@@ -123,9 +123,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationPrayerTooLong: (max: number) => `\uae30\ub3c4 \uc694\uccad\uc740 ${max}\uc790 \uc774\ud558\uc5ec\uc57c \ud569\ub2c8\ub2e4.`,
     validationConsentRequired: "\uc81c\ucd9c\ud558\uae30 \uc804\uc5d0 \uc57d\uad00\uc5d0 \ub3d9\uc758\ud574 \uc8fc\uc138\uc694.",
     successViewText: "\uac10\uc0ac\ud569\ub2c8\ub2e4! \uae30\ub3c4 \uc694\uccad\uc774 \uc811\uc218\ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
-    consentLabel: "이 양식을 제출하면 브라더혁 미니스트리에 가입되며, 저희로부터 소식을 받는 것에 동의하게 됩니다.",
-    descriptionLine1: "\uadc0\ud55c \uae30\ub3c4 \uc694\uccad\uc740 \ub2f4\ub2f9 \uc2a4\ud0ed\uc744 \ud1b5\ud574 \ud558\ub098\ub2d8\uc758 \uc0ac\ub78c \ubc15\ud600 \uc804\ub3c4\uc790\uc5d0\uac8c \uc804\ub2ec\ub429\ub2c8\ub2e4.\n\uac1c\ubcc4 \ub2f5\ubcc0\uc740 \uc81c\uacf5\ub418\uc9c0 \uc54a\ub294 \uc810 \uc591\ud574 \ubd80\ud0c1\ub4dc\ub9bd\ub2c8\ub2e4.",
-    descriptionLine2: "\uc911\ubcf4\uae30\ub3c4\ub97c \uc694\uccad\ud558\uc2e0 \ud6c4, \uc804\ub2a5\ud558\uc2e0 \ud558\ub098\ub2d8\uc744 \ud5a5\ud55c \ubbff\uc74c\uc744 \uc783\uc9c0 \ub9c8\uc2dc\uace0 \uacc4\uc18d\ud574\uc11c \uadf8\ubd84\uc744 \uc2e0\ub8b0\ud558\uc2dc\uae30\ub97c \uad8c\uba74\ud569\ub2c8\ub2e4.",
+    consentLabel: "브라더혁 미니스트리의 뉴스레터에 가입하고 사역으로부터 소식을 받는 것에 동의합니다.",
+    descriptionLine1: "귀하의 소중한 중보기도 제목은 저희 스태프를 통해 하나님의 사람 박혁 전도자에게 전달됩니다.\n개별적인 회신을 드리지 않는 점 양해해 주시기 바랍니다.",
+    descriptionLine2: "중보기도를 요청하신 이후에도 전능하신 하나님을 향한 믿음을 잃지 마시고 계속해서 그분을 신뢰하시기를 권면드립니다.",
     headingText: "중보기도 요청",
   },
   ja: {
@@ -258,7 +258,7 @@ export function PrayerRequestForm({
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("PH");
+  const [country, setCountry] = useState("");
   const localeToLanguageCode: Record<string, string> = {
     en: "en-us",
     ko: "ko-kr",
@@ -272,7 +272,23 @@ export function PrayerRequestForm({
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [statusMessage, setStatusMessage] = useState("");
 
-  const selectedCountry = COUNTRIES.find((c) => c.code === country) || COUNTRIES[0];
+  // Auto-detect user's country via IP geolocation
+  useEffect(() => {
+    if (country) return; // Don't override if already set
+    fetch("https://ipapi.co/json/")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.country_code) {
+          const match = COUNTRIES.find((c) => c.code === data.country_code);
+          setCountry(match ? match.code : "OTHER");
+        }
+      })
+      .catch(() => {
+        // Silently fail — user can select manually
+      });
+  }, []);
+
+  const selectedCountry = COUNTRIES.find((c) => c.code === country) || null;
   const selectedLanguage = LANGUAGES.find((l) => l.code === language) || LANGUAGES[0];
   const charsUsed = prayerRequest.length;
 
@@ -715,8 +731,8 @@ export function PrayerRequestForm({
                   <label className="pr-label">{t.countryLabel}</label>
                   <div className="pr-select-wrapper">
                     <div className="pr-country-display">
-                      <span className="pr-country-flag">{selectedCountry.flag}</span>
-                      <span className="pr-country-name">{selectedCountry.name}</span>
+                      <span className="pr-country-flag">{selectedCountry ? selectedCountry.flag : "🌍"}</span>
+                      <span className="pr-country-name">{selectedCountry ? selectedCountry.name : t.countryLabel}</span>
                     </div>
                     <select
                       aria-label={t.countryLabel}
@@ -724,6 +740,7 @@ export function PrayerRequestForm({
                       value={country}
                       onChange={(event) => setCountry(event.target.value)}
                     >
+                      <option value="" disabled>{t.countryLabel}</option>
                       {COUNTRIES.map((c) => (
                         <option key={c.code} value={c.code}>
                           {c.flag} {c.name}
