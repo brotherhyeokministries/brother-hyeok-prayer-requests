@@ -34,12 +34,27 @@ const LANGUAGES = [
   { code: "pt-br", name: "Portugu\u00eas" },
 ];
 
-const SUCCESS_MESSAGES: Record<string, string> = {
-  en: "Your prayer request has been successfully submitted. Our team will deliver it to the Man of God, Hyeok. And he will pray for you.",
-  ko: "기도 요청이 성공적으로 제출되었습니다. 담당 스텝이 이를 하나님의 사람 박혁 전도자에게 전달하며, 박혁 전도자가 당신을 위해 중보기도할 것입니다.",
-  es: "Su petición de oración ha sido enviada con éxito. Nuestro equipo la entregará al hombre de Dios, Hyeok, quien estará orando por usted.",
-  "pt": "Seu pedido de oração foi enviado com sucesso. Nossa equipe o entregará ao homem de Deus, Hyeok, que estará orando por você.",
-  ja: "祈りのリクエストが正常に送信されました。担当スタッフがこれを神の人ヒョク・パークにお届けし、ヒョク・パークがあなたのために執り成しの祈りをいたします。",
+const SUCCESS_MESSAGES: Record<string, [string, string]> = {
+  en: [
+    "Your intercessory prayer request has been successfully submitted.",
+    "Our staff will deliver it to the man of God, Hyeok Park.",
+  ],
+  ko: [
+    "귀하의 중보기도 요청이 성공적으로 제출되었습니다.",
+    "담당 스텝이 이를 하나님의 사람 박혁 전도자에게 전달드릴 예정입니다.",
+  ],
+  es: [
+    "Su solicitud de oración de intercesión ha sido enviada con éxito.",
+    "Nuestro equipo la entregará al hombre de Dios, Hyeok Park.",
+  ],
+  pt: [
+    "Seu pedido de oração de intercessão foi enviado com sucesso.",
+    "Nossa equipe o entregará ao homem de Deus, Hyeok Park.",
+  ],
+  ja: [
+    "あなたのとりなしの祈りのリクエストは正常に送信されました。",
+    "担当スタッフが神の人ヒョク・パークにお伝えいたします。",
+  ],
 };
 
 type TranslationStrings = {
@@ -278,7 +293,7 @@ export function PrayerRequestForm({
   const [prayerRequest, setPrayerRequest] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
-  const [statusMessage, setStatusMessage] = useState("");
+  const [statusMessage, setStatusMessage] = useState<string | [string, string]>("");
 
   // Auto-detect user's country via IP geolocation
   useEffect(() => {
@@ -693,7 +708,14 @@ export function PrayerRequestForm({
           <div className="pr-panel">
             {submitState === "success" ? (
               <div className="pr-success-view">
-                <p>{statusMessage || (isEnglish ? successMessage : t.successViewText)}</p>
+                {Array.isArray(statusMessage) ? (
+                  <>
+                    <p>{statusMessage[0]}</p>
+                    <p style={{ marginTop: "12px" }}>{statusMessage[1]}</p>
+                  </>
+                ) : (
+                  <p>{statusMessage || (isEnglish ? successMessage : t.successViewText)}</p>
+                )}
               </div>
             ) : (
               <form
@@ -827,7 +849,7 @@ export function PrayerRequestForm({
                   aria-live="polite"
                   className={`pr-status ${submitState === "error" ? "error" : ""}`}
                 >
-                  {submitState === "error" ? statusMessage : ""}
+                  {submitState === "error" && typeof statusMessage === "string" ? statusMessage : ""}
                 </p>
               </form>
             )}
