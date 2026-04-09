@@ -5,6 +5,7 @@ export interface PrayerRequestFormProps {
   image?: { src: string; alt?: string };
   descriptionLine1?: string;
   descriptionLine2?: string;
+  descriptionLine3?: string;
   emailPlaceholder?: string;
   prayerRequestPlaceholder?: string;
   prayerRequestMaxLength?: number;

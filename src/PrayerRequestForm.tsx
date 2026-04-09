@@ -61,6 +61,7 @@ type TranslationStrings = {
   consentLabel: string;
   descriptionLine1: string;
   descriptionLine2: string;
+  descriptionLine3: string;
   headingText: string;
 };
 
@@ -82,8 +83,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationConsentRequired: "Please agree to the terms before submitting.",
     successViewText: "Thank you! Your prayer request has been received.",
     consentLabel: "I agree to join Brother Hyeok Ministries\u2019 newsletter and receive communications from the ministry.",
-    descriptionLine1: "Your precious prayer request will be delivered to Man of God Hyeok Park through our staff.\nPlease understand that individual replies will not be provided.",
-    descriptionLine2: "After requesting intercessory prayer, we encourage you not to lose your faith toward the Almighty God and to continue trusting Him.",
+    descriptionLine1: "Your precious prayer request will be delivered to Man of God Hyeok Park through our staff.",
+    descriptionLine2: "Please understand that individual replies will not be provided.",
+    descriptionLine3: "After requesting intercessory prayer, we encourage you not to lose your faith toward the Almighty God and to continue trusting Him.",
     headingText: "Prayer Request",
   },
   es: {
@@ -103,8 +105,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationConsentRequired: "Por favor, acepta los t\u00e9rminos antes de enviar.",
     successViewText: "\u00a1Gracias! Tu petici\u00f3n de oraci\u00f3n ha sido recibida.",
     consentLabel: "Acepto unirme al bolet\u00edn informativo del Ministerio del Hermano Hyeok y recibir comunicaciones del ministerio.",
-    descriptionLine1: "Tu valiosa petici\u00f3n de oraci\u00f3n ser\u00e1 entregada al Hombre de Dios Hyeok Park a trav\u00e9s de nuestro equipo.\nPor favor, comprende que no se proporcionar\u00e1n respuestas individuales.",
-    descriptionLine2: "Despu\u00e9s de solicitar oraci\u00f3n de intercesi\u00f3n, te animamos a no perder tu fe hacia el Dios Todopoderoso y a seguir confiando en \u00c9l.",
+    descriptionLine1: "Tu valiosa petición de oración será entregada al Hombre de Dios Hyeok Park a través de nuestro equipo.",
+    descriptionLine2: "Por favor, comprende que no se proporcionarán respuestas individuales.",
+    descriptionLine3: "Después de solicitar oración de intercesión, te animamos a no perder tu fe hacia el Dios Todopoderoso y a seguir confiando en Él.",
     headingText: "Petici\u00f3n de oraci\u00f3n",
   },
   ko: {
@@ -124,8 +127,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationConsentRequired: "\uc81c\ucd9c\ud558\uae30 \uc804\uc5d0 \uc57d\uad00\uc5d0 \ub3d9\uc758\ud574 \uc8fc\uc138\uc694.",
     successViewText: "\uac10\uc0ac\ud569\ub2c8\ub2e4! \uae30\ub3c4 \uc694\uccad\uc774 \uc811\uc218\ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
     consentLabel: "브라더혁 미니스트리의 뉴스레터에 가입하고 사역으로부터 소식을 받는 것에 동의합니다.",
-    descriptionLine1: "귀하의 소중한 중보기도 제목은 저희 스태프를 통해 하나님의 사람 박혁 전도자에게 전달됩니다.\n개별적인 회신을 드리지 않는 점 양해해 주시기 바랍니다.",
-    descriptionLine2: "중보기도를 요청하신 이후에도 전능하신 하나님을 향한 믿음을 잃지 마시고 계속해서 그분을 신뢰하시기를 권면드립니다.",
+    descriptionLine1: "귀하의 소중한 중보기도 제목은 저희 스태프를 통해 하나님의 사람 박혁 전도자에게 전달됩니다.",
+    descriptionLine2: "개별적인 회신을 드리지 않는 점 양해해 주시기 바랍니다.",
+    descriptionLine3: "중보기도를 요청하신 이후에도 전능하신 하나님을 향한 믿음을 잃지 마시고 계속해서 그분을 신뢰하시기를 권면드립니다.",
     headingText: "중보기도 요청",
   },
   ja: {
@@ -145,8 +149,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationConsentRequired: "\u9001\u4fe1\u524d\u306b\u5229\u7528\u898f\u7d04\u306b\u540c\u610f\u3057\u3066\u304f\u3060\u3055\u3044\u3002",
     successViewText: "\u3042\u308a\u304c\u3068\u3046\u3054\u3056\u3044\u307e\u3059\uff01\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u53d7\u3051\u4ed8\u3051\u307e\u3057\u305f\u3002",
     consentLabel: "\u30d6\u30e9\u30b6\u30fc\u30fb\u30d2\u30e7\u30af\u30fb\u30df\u30cb\u30b9\u30c8\u30ea\u30fc\u30ba\u306e\u30cb\u30e5\u30fc\u30b9\u30ec\u30bf\u30fc\u306b\u767b\u9332\u3057\u3001\u30df\u30cb\u30b9\u30c8\u30ea\u30fc\u304b\u3089\u306e\u304a\u77e5\u3089\u305b\u3092\u53d7\u3051\u53d6\u308b\u3053\u3068\u306b\u540c\u610f\u3057\u307e\u3059\u3002",
-    descriptionLine1: "\u5927\u5207\u306a\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u306f\u3001\u62c5\u5f53\u30b9\u30bf\u30c3\u30d5\u3092\u901a\u3058\u3066\u795e\u306e\u4eba\u30d2\u30e7\u30af\u30fb\u30d1\u30fc\u30af\u306b\u304a\u5c4a\u3051\u3044\u305f\u3057\u307e\u3059\u3002\n\u500b\u5225\u306e\u304a\u8fd4\u4e8b\u306f\u3044\u305f\u3057\u304b\u306d\u307e\u3059\u306e\u3067\u3001\u3054\u4e86\u627f\u304f\u3060\u3055\u3044\u3002",
-    descriptionLine2: "\u57f7\u308a\u6210\u3057\u306e\u7948\u308a\u3092\u304a\u9858\u3044\u3057\u305f\u5f8c\u3082\u3001\u5168\u80fd\u306e\u795e\u3078\u306e\u4fe1\u4ef0\u3092\u5931\u308f\u305a\u3001\u795e\u3092\u4fe1\u983c\u3057\u7d9a\u3051\u3066\u304f\u3060\u3055\u3044\u3002",
+    descriptionLine1: "大切な祈りのリクエストは、担当スタッフを通じて神の人ヒョク・パークにお届けいたします。",
+    descriptionLine2: "個別のお返事はいたしかねますので、ご了承ください。",
+    descriptionLine3: "執り成しの祈りをお願いした後も、全能の神への信仰を失わず、神を信頼し続けてください。",
     headingText: "\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8",
   },
   pt: {
@@ -166,8 +171,9 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     validationConsentRequired: "Por favor, aceite os termos antes de enviar.",
     successViewText: "Obrigado! Seu pedido de ora\u00e7\u00e3o foi recebido.",
     consentLabel: "Concordo em participar da newsletter do Minist\u00e9rio do Irm\u00e3o Hyeok e receber comunica\u00e7\u00f5es do minist\u00e9rio.",
-    descriptionLine1: "Seu precioso pedido de ora\u00e7\u00e3o ser\u00e1 entregue ao Homem de Deus Hyeok Park por meio de nossa equipe.\nPor favor, compreenda que respostas individuais n\u00e3o ser\u00e3o fornecidas.",
-    descriptionLine2: "Ap\u00f3s solicitar ora\u00e7\u00e3o de intercess\u00e3o, encorajamos voc\u00ea a n\u00e3o perder sua f\u00e9 no Deus Todo-Poderoso e a continuar confiando Nele.",
+    descriptionLine1: "Seu precioso pedido de oração será entregue ao Homem de Deus Hyeok Park por meio de nossa equipe.",
+    descriptionLine2: "Por favor, compreenda que respostas individuais não serão fornecidas.",
+    descriptionLine3: "Após solicitar oração de intercessão, encorajamos você a não perder sua fé no Deus Todo-Poderoso e a continuar confiando Nele.",
     headingText: "Pedido de ora\u00e7\u00e3o",
   },
 };
@@ -232,8 +238,9 @@ function joinClasses(...values: Array<string | false | null | undefined>): strin
 export function PrayerRequestForm({
   headingText = "Prayer Request",
   image,
-  descriptionLine1 = "Your precious prayer request will be delivered to Man of God Hyeok Park through our staff. Please understand that individual replies will not be provided.",
-  descriptionLine2 = "After requesting intercessory prayer, we encourage you not to lose your faith toward the Almighty God and to continue trusting Him.",
+  descriptionLine1 = "Your precious prayer request will be delivered to Man of God Hyeok Park through our staff.",
+  descriptionLine2 = "Please understand that individual replies will not be provided.",
+  descriptionLine3 = "After requesting intercessory prayer, we encourage you not to lose your faith toward the Almighty God and to continue trusting Him.",
   emailPlaceholder = "name@email.com",
   prayerRequestPlaceholder = "Type your prayer request",
   prayerRequestMaxLength = 300,
@@ -250,6 +257,7 @@ export function PrayerRequestForm({
   const resolvedHeading = isEnglish ? headingText : t.headingText;
   const resolvedDescLine1 = isEnglish ? descriptionLine1 : t.descriptionLine1;
   const resolvedDescLine2 = isEnglish ? descriptionLine2 : t.descriptionLine2;
+  const resolvedDescLine3 = isEnglish ? descriptionLine3 : t.descriptionLine3;
   const resolvedEmailPlaceholder = isEnglish ? emailPlaceholder : t.emailPlaceholder;
   const resolvedPrayerPlaceholder = isEnglish ? prayerRequestPlaceholder : t.prayerRequestPlaceholder;
   const resolvedConsentLabel = isEnglish ? consentLabel : t.consentLabel;
@@ -676,6 +684,9 @@ export function PrayerRequestForm({
             </p>
             <p className={joinClasses("pr-description", "text-size-regular")} style={{ marginTop: "12px" }}>
               {resolvedDescLine2}
+            </p>
+            <p className={joinClasses("pr-description", "text-size-regular")} style={{ marginTop: "12px" }}>
+              {resolvedDescLine3}
             </p>
           </div>
 
