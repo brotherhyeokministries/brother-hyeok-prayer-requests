@@ -269,15 +269,15 @@ export function PrayerRequestForm({
   const t = TRANSLATIONS[locale] || TRANSLATIONS.en;
   const isEnglish = locale === "en";
 
-  const resolvedHeading = isEnglish ? headingText : t.headingText;
-  const resolvedDescLine1 = isEnglish ? descriptionLine1 : t.descriptionLine1;
-  const resolvedDescLine2 = isEnglish ? descriptionLine2 : t.descriptionLine2;
-  const resolvedDescLine3 = isEnglish ? descriptionLine3 : t.descriptionLine3;
-  const resolvedEmailPlaceholder = isEnglish ? emailPlaceholder : t.emailPlaceholder;
-  const resolvedPrayerPlaceholder = isEnglish ? prayerRequestPlaceholder : t.prayerRequestPlaceholder;
-  const resolvedConsentLabel = isEnglish ? consentLabel : t.consentLabel;
-  const resolvedButtonLabel = isEnglish ? buttonLabel : t.buttonLabel;
-  const resolvedButtonSubmittingLabel = isEnglish ? buttonSubmittingLabel : t.buttonSubmittingLabel;
+  const resolvedHeading = t.headingText;
+  const resolvedDescLine1 = t.descriptionLine1;
+  const resolvedDescLine2 = t.descriptionLine2;
+  const resolvedDescLine3 = t.descriptionLine3;
+  const resolvedEmailPlaceholder = t.emailPlaceholder;
+  const resolvedPrayerPlaceholder = t.prayerRequestPlaceholder;
+  const resolvedConsentLabel = t.consentLabel;
+  const resolvedButtonLabel = t.buttonLabel;
+  const resolvedButtonSubmittingLabel = t.buttonSubmittingLabel;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -714,7 +714,7 @@ export function PrayerRequestForm({
                     <p style={{ marginTop: "12px" }}>{statusMessage[1]}</p>
                   </>
                 ) : (
-                  <p>{statusMessage || (isEnglish ? successMessage : t.successViewText)}</p>
+                  <p>{statusMessage || t.successViewText}</p>
                 )}
               </div>
             ) : (
