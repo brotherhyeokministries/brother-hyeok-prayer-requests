@@ -152,7 +152,7 @@ const TRANSLATIONS: Record<string, TranslationStrings> = {
     emailLabel: "\u30e1\u30fc\u30eb",
     emailPlaceholder: "name@email.com",
     countryLabel: "\u3054\u51fa\u8eab\u306f\u3069\u3061\u3089\u3067\u3059\u304b\uff1f",
-    languageLabel: "\u5e0c\u671b\u8a00\u8a9e",
+    languageLabel: "\u5e0c\u671b\u3059\u308b\u8a00\u8a9e",
     prayerRequestLabel: "\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8",
     prayerRequestPlaceholder: "\u7948\u308a\u306e\u30ea\u30af\u30a8\u30b9\u30c8\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044",
     buttonLabel: "送信する",
